@@ -6,12 +6,12 @@ import { ReactNode, useState } from "react";
 import MobileNav from "./mobile-nav";
 
 interface MainNavProps {
-    items?: NavItem[];
+    items: NavItem[];
     children?: ReactNode;
 }
 
 export default function MainNav({ items }: MainNavProps){
-  const [showMobileMenu, setShowMobileMenu] = useState<boolean>(true);
+  const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
 
     return (
         <div className="flex items-center md:gap-10">
