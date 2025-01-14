@@ -21,6 +21,13 @@ export default function IndexPage() {
               </div>
             </div>
           </section>
+
+          <section id="features" className="container py-8 md:py-12 lg:py-24 bg-slate-50">
+            <div className="text-center space-y-6 max-w-[58rem] mx-auto">
+              <h2 className="font-extrabold text-3xl md:text-6xl">サービスの特徴</h2>
+              <p className="text-muted-foreground sm:text-lg sm:leading-7">このプロジェクトはモダンな技術スタックを使って作られたWebアプリケーションです。Next.jsAppRouterやcontantlayerを利用してマークダウン形式でブログ投稿ができます。</p>
+            </div>
+          </section>
         </>
     )
 }
