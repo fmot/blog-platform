@@ -1,5 +1,6 @@
 import { buttonVariants } from "@/components/ui/button";
 import MainNav from "@/components/ui/main-nav";
+import SiteFooter from "@/components/ui/site-footer";
 import { marketingConfig } from "@/config/marketing";
 import { cn } from "@/lib/utils";
 import  Link from "next/link";
@@ -20,6 +21,7 @@ export default function MarketingLayout({
                 </div>
             </header>
             <main>{children}</main>
+            <SiteFooter />
         </div>
     )
 };
