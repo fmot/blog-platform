@@ -1,4 +1,4 @@
-import { siteconfig } from "@/config/site";
+import { siteConfig } from "@/config/site";
 import { NavItem } from "@/types";
 import { useLockBodyScroll } from "@uidotdev/usehooks";
 import Link from "next/link";
@@ -15,7 +15,7 @@ export default function MobileNav({items}: MobileNavProps){
       <div className="fixed top-16 z-50 p-6 shadow-md md:hidden animate-in slide-in-from-bottom-80">
           <div>
               <Link href={"/"}>
-                {siteconfig.name}
+                {siteConfig.name}
               </Link>
               <nav>
                   {items.map((item, index) =>(
