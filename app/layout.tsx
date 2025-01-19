@@ -1,17 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const font_Noto_Sans_JP = Noto_Sans_JP({subsets: ["latin"]})
 
 export const metadata: Metadata = {
   title: {
@@ -26,6 +18,7 @@ export const metadata: Metadata = {
       url: siteConfig.url,
     },
   ],
+  metadataBase: new URL(siteConfig.url),
   openGraph: {
     type: "website",
     locale: "ja",
@@ -51,7 +44,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={font_Noto_Sans_JP.className}
       >
         {children}
       </body>
