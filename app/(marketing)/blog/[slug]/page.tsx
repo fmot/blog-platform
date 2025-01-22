@@ -1,4 +1,9 @@
 import { allPosts } from "@/.contentlayer/generated"
+import { buttonVariants } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
+import { format } from "date-fns"
+import Image from "next/image"
+import Link from "next/link"
 import { notFound } from "next/navigation"
 
 async function getPostFromSlug(slug: string) {
@@ -17,9 +22,25 @@ export default async function PostPage({ params }: { params: { slug: string } })
   console.log(post)
 
   return(
-    <div>
-      <div>{post.title}</div>
-      <div>{post.description}</div>
-    </div>
+    <article className="container max-w-3xl py-6 lg:py-10 mx-auto">
+      <div>
+        {post.date && (<time>Published on {format(post.date, "yyyy/MM/dd")}</time>)}
+        <h1 className="mt-2 font-extrabold text-4xl lg:text-5xl leading-tight">{post.title}</h1>
+      </div>
+      {post.image && (
+        <Image src={post.image} alt={post.title} width={720} height={405} className="my-8 border rounded-md bg-muted" />
+      )
+      }
+      <div>{post.body.html}</div>
+      <hr className="mt-12"/>
+      <div className="py-6 text-center lg:py-10">
+        <Link
+          href={"/blog"}
+          className={cn(buttonVariants({ variant: "secondary" }))}
+        >
+          全ての記事を見る
+        </Link>
+      </div>
+    </article>
   )
 }
