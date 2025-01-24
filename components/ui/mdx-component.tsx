@@ -14,7 +14,7 @@ export default function Mdx({ code }: { code: string }) {
 
   return (
     <div>
-      <div>
+      <div className="prose lg:prose-xl max-w-full">
         <Component components={components} />
       </div>
     </div>
