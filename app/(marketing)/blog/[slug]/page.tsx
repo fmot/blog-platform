@@ -1,5 +1,6 @@
 import { allPosts } from "@/.contentlayer/generated"
 import { buttonVariants } from "@/components/ui/button"
+import Mdx from "@/components/ui/mdx-component"
 import { cn } from "@/lib/utils"
 import { format } from "date-fns"
 import Image from "next/image"
@@ -31,7 +32,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
         <Image src={post.image} alt={post.title} width={720} height={405} className="my-8 border rounded-md bg-muted" />
       )
       }
-      <div>{post.body.html}</div>
+      <Mdx code={post.body.code} />
       <hr className="mt-12"/>
       <div className="py-6 text-center lg:py-10">
         <Link
