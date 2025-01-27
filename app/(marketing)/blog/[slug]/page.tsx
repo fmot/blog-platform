@@ -1,6 +1,6 @@
 import { allPosts } from "@/.contentlayer/generated";
 import { buttonVariants } from "@/components/ui/button";
-import Mdx from "@/components/ui/mdx-component";
+import Mdx from "@/components/mdx-component";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";

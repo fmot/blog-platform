@@ -1,4 +1,4 @@
-// import UserAuthForm from "@/components/user-auth-form";
+import UserAuthForm from "@/components/user-auth-form";
 import Link from "next/link";
 
 export default function Login() {
@@ -14,7 +14,7 @@ export default function Login() {
           </p>
         </div>
 
-        {/* <UserAuthForm /> */}
+        <UserAuthForm />
 
         <p className="text-muted-foreground px-8 text-center text-sm">
           <Link href={"/register"} className="underline underline-offset-4">
