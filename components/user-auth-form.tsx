@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "./ui/button";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "./ui/input";
+import { Icon } from "./icon";
 
 export default function UserAuthForm() {
   return (
@@ -17,6 +18,24 @@ export default function UserAuthForm() {
           </button>
         </div>
       </form>
+
+      <div className="relative">
+        <div className="absolute inset-0 flex items-center">
+          <span className="w-full border-t" />
+        </div>
+        <div className="relative flex justify-center text-xs">
+          <span className="text-muted-foreground px-2 bg-background">
+            または
+          </span>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-3">
+        <button className={cn(buttonVariants({ variant: "outline" }))}>
+          <Icon.github className="mr-2" />
+          Github
+        </button>
+      </div>
     </div>
   );
 }
