@@ -1,8 +1,11 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "./ui/button";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "./ui/input";
 import { Icon } from "./icon";
+import { signIn } from "next-auth/react";
 
 export default function UserAuthForm() {
   return (
@@ -31,7 +34,10 @@ export default function UserAuthForm() {
       </div>
 
       <div className="flex flex-col gap-3">
-        <button className={cn(buttonVariants({ variant: "outline" }))}>
+        <button
+          className={cn(buttonVariants({ variant: "outline" }))}
+          onClick={() => signIn("github")}
+        >
           <Icon.github className="mr-2" />
           Github
         </button>
