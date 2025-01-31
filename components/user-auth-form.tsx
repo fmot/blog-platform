@@ -10,6 +10,7 @@ import { useState } from "react";
 
 export default function UserAuthForm() {
   const [isGithubLoading, setIsGithubLoading] = useState<boolean>(false);
+  const [isGoogleLoading, setIsGoogleLoading] = useState<boolean>(false);
 
   return (
     <div className="grid gap-6">
@@ -50,6 +51,21 @@ export default function UserAuthForm() {
             <Icon.github className="mr-2" />
           )}
           Github
+        </button>
+
+        <button
+          className={cn(buttonVariants({ variant: "outline" }))}
+          onClick={() => {
+            setIsGoogleLoading(true);
+            signIn("google");
+          }}
+        >
+          {isGoogleLoading ? (
+            <Icon.spinner className="mr-2 animate-spin" />
+          ) : (
+            <Icon.google className="mr-2" />
+          )}
+          Google
         </button>
       </div>
     </div>
