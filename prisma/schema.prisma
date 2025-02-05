@@ -72,3 +72,17 @@ model VerificationRequest {
   @@unique([identifier, token])
   @@map(name: "verification_tokens")
 }
+
+model Post {
+  id String @id @default(cuid())
+  title String
+  content Json?
+  published Boolean @default(false)
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @default(now()) @map(name: "updated_at")
+  authorId String
+
+  author User @relation(fields: [authorId], references: [id])
+
+  @@map(name: "posts")
+}
