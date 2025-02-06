@@ -18,10 +18,9 @@ model Account {
   userId             String
   type               String
   provider           String
-  providerId         String
   providerAccountId  String
-  refresh_Token      String?   @db.Text
-  access_Token       String?   @db.Text
+  refresh_token      String?   @db.Text
+  access_token       String?   @db.Text
   expires_at         Int?
   token_type         String?
   scope              String?
@@ -31,7 +30,7 @@ model Account {
   updatedAt          DateTime  @default(now()) @map(name: "updated_at")
   user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([providerId, providerAccountId])
+  @@unique([provider, providerAccountId])
   @@map(name: "accounts")
 }
 
