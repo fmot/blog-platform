@@ -1,7 +1,52 @@
-import { Loader2 } from "lucide-react";
+import {
+  AlertTriangle,
+  ArrowRight,
+  Check,
+  ChevronLeft,
+  ChevronRight,
+  Command,
+  CreditCard,
+  File,
+  FileText,
+  HelpCircle,
+  Image,
+  Laptop,
+  Loader2,
+  LucideProps,
+  Moon,
+  MoreVertical,
+  Pizza,
+  Plus,
+  Settings,
+  SunMedium,
+  Trash,
+  Twitter,
+  User,
+  X,
+} from "lucide-react";
 
 export const Icon = {
+  logo: Command,
+  close: X,
   spinner: Loader2,
+  chevronLeft: ChevronLeft,
+  chevronRight: ChevronRight,
+  trash: Trash,
+  post: FileText,
+  page: File,
+  media: Image,
+  settings: Settings,
+  billing: CreditCard,
+  ellipsis: MoreVertical,
+  add: Plus,
+  warning: AlertTriangle,
+  user: User,
+  arrowRight: ArrowRight,
+  help: HelpCircle,
+  pizza: Pizza,
+  sun: SunMedium,
+  moon: Moon,
+  laptop: Laptop,
   github: ({ ...props }) => (
     <svg
       aria-hidden="true"
@@ -27,7 +72,7 @@ export const Icon = {
       width="22"
       height="22"
       viewBox="0 0 48 48"
-      {...props}
+      className="mr-2"
     >
       <path
         fill="#FFC107"
@@ -47,4 +92,6 @@ export const Icon = {
       />
     </svg>
   ),
+  X: X,
+  check: Check,
 };
