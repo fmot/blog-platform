@@ -1,7 +1,9 @@
+import DashBoardShell from "@/components/dashboard-shell";
+
 export default function DashboardPage() {
   return (
-    <div>
+    <DashBoardShell>
       <div>Dashboard</div>
-    </div>
+    </DashBoardShell>
   );
 }

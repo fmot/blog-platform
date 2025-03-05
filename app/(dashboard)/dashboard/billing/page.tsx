@@ -1,7 +1,9 @@
+import DashBoardShell from "@/components/dashboard-shell";
+
 export default function BillingPage() {
   return (
-    <div>
+    <DashBoardShell>
       <div></div>
-    </div>
+    </DashBoardShell>
   );
 }
