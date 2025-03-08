@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import { Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
+import { Toaster } from "@/components/ui/toaster";
 
-const font_Noto_Sans_JP = Noto_Sans_JP({subsets: ["latin"]})
+const font_Noto_Sans_JP = Noto_Sans_JP({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
-    template: `%s | ${siteConfig.name}`
+    template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
   keywords: ["Next.js", "React", "TailwindCSS", "shadcn/ui"],
@@ -33,7 +34,7 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: [`${siteConfig.url}/og.jpg`],
     creator: "fmot",
-  }
+  },
 };
 
 export default function RootLayout({
@@ -43,10 +44,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={font_Noto_Sans_JP.className}
-      >
+      <body className={font_Noto_Sans_JP.className}>
         {children}
+        <Toaster />
       </body>
     </html>
   );
