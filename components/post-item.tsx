@@ -1,6 +1,7 @@
 import { Post } from "@prisma/client";
 import { format } from "date-fns";
 import Link from "next/link";
+import PostOperations from "./post-operations";
 
 interface PostItemProps {
   post: Pick<Post, "id" | "title" | "published" | "createdAt">;
@@ -8,8 +9,8 @@ interface PostItemProps {
 
 export default function PostItem({ post }: PostItemProps) {
   return (
-    <dev className="flex items-center justify-between p-4">
-      <dev className="grid gap-1">
+    <div className="flex items-center justify-between p-4">
+      <div className="grid gap-1">
         <Link
           href={`/editor/${post.id}`}
           className="font-semibold hover:underline"
@@ -17,12 +18,13 @@ export default function PostItem({ post }: PostItemProps) {
           {post.title}
         </Link>
 
-        <dev>
+        <div>
           <p className="text-sm text-muted-foreground">
             {format(post.createdAt, "yyyy-MM-dd")}
           </p>
-        </dev>
-      </dev>
-    </dev>
+        </div>
+      </div>
+      <PostOperations post={post}></PostOperations>
+    </div>
   );
 }
