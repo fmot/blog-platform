@@ -1,6 +1,7 @@
 import DashBoardHeader from "@/components/dashboard-header";
 import DashBoardShell from "@/components/dashboard-shell";
 import PostCreateButton from "@/components/post-create-button";
+import PostItem from "@/components/post-item";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/session";
 import { redirect } from "next/navigation";
@@ -27,13 +28,18 @@ export default async function DashboardPage() {
     },
   });
 
-  console.log(posts);
-
   return (
     <DashBoardShell>
       <DashBoardHeader heading="記事投稿" text="記事の投稿と管理">
         <PostCreateButton />
       </DashBoardHeader>
+      <div>
+        <div className="divide-y border rounded-md">
+          {posts.map((post) => (
+            <PostItem key={post.id} post={post} />
+          ))}
+        </div>
+      </div>
     </DashBoardShell>
   );
 }
