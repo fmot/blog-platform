@@ -6,6 +6,10 @@ import { buttonVariants } from "./ui/button";
 import TextAreaAutoSize from "react-textarea-autosize";
 import EditorJS from "@editorjs/editorjs";
 import { useEffect, useState } from "react";
+import Header from "@editorjs/header";
+import LinkTool from "@editorjs/link";
+import EditorjsList from "@editorjs/list";
+import Code from "@editorjs/code";
 
 export default function Editor() {
   const [isMounted, setIsMounted] = useState<boolean>(false);
@@ -15,6 +19,12 @@ export default function Editor() {
       holder: "editor",
       placeholder: "Start writing your post",
       inlineToolbar: true,
+      tools: {
+        header: Header,
+        linkTool: LinkTool,
+        list: EditorjsList,
+        code: Code,
+      },
     });
   };
 
