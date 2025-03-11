@@ -5,18 +5,22 @@ import Link from "next/link";
 import { buttonVariants } from "./ui/button";
 import TextAreaAutoSize from "react-textarea-autosize";
 import EditorJS from "@editorjs/editorjs";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Header from "@editorjs/header";
 import LinkTool from "@editorjs/link";
 import EditorjsList from "@editorjs/list";
 import Code from "@editorjs/code";
 
 export default function Editor() {
+  const ref = useRef<EditorJS | undefined>();
   const [isMounted, setIsMounted] = useState<boolean>(false);
 
-  const initializeEditor = async () => {
+  const initializeEditor = useCallback(async () => {
     const editor = new EditorJS({
       holder: "editor",
+      onReady() {
+        ref.current = editor;
+      },
       placeholder: "Start writing your post",
       inlineToolbar: true,
       tools: {
@@ -26,7 +30,7 @@ export default function Editor() {
         code: Code,
       },
     });
-  };
+  }, []);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -38,7 +42,12 @@ export default function Editor() {
     if (isMounted) {
       initializeEditor();
     }
-  }, [isMounted]);
+
+    return () => {
+      ref.current?.destroy();
+      ref.current = undefined;
+    };
+  }, [isMounted, initializeEditor]);
 
   return (
     <form>
@@ -57,7 +66,7 @@ export default function Editor() {
             Save
           </button>
         </div>
-        <div>
+        <div className="w-[800] mx-auto">
           <TextAreaAutoSize
             id="title"
             autoFocus
