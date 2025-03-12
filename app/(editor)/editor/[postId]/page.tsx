@@ -2,7 +2,7 @@ import Editor from "@/components/editor";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/session";
 import { Post, User } from "@prisma/client";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 interface EditorProps {
   params: {
@@ -31,6 +31,10 @@ export default async function EditorPage({ params }: EditorProps) {
 
   const postId = params.postId;
   const post = await getPostForUser(postId, userId);
+
+  if (!post) {
+    return notFound();
+  }
 
   return (
     <Editor
