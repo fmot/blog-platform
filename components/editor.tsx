@@ -14,6 +14,8 @@ import { Post } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { postPatchSchema, postPatchSchemaType } from "@/lib/validations/post";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 interface EditorProps {
   post: Pick<Post, "id" | "title" | "content" | "published">;
@@ -22,6 +24,8 @@ interface EditorProps {
 export default function Editor({ post }: EditorProps) {
   const ref = useRef<EditorJS | undefined>();
   const [isMounted, setIsMounted] = useState<boolean>(false);
+  const router = useRouter();
+  const { toast } = useToast();
 
   const initializeEditor = useCallback(async () => {
     const editor = new EditorJS({
@@ -31,6 +35,7 @@ export default function Editor({ post }: EditorProps) {
       },
       placeholder: "Start writing your post",
       inlineToolbar: true,
+      data: post.content as any,
       tools: {
         header: Header,
         linkTool: LinkTool,
@@ -67,8 +72,31 @@ export default function Editor({ post }: EditorProps) {
 
   const onSubmit = async (data: postPatchSchemaType) => {
     const blocks = await ref.current?.save();
-    console.error(data);
-    console.error(blocks);
+
+    const response = await fetch(`/api/posts/${post.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: data.title,
+        content: blocks,
+      }),
+    });
+
+    if (!response.ok) {
+      return toast({
+        title: "Some error occurred",
+        description: "Failed to save the post. Please try again.",
+        variant: "destructive",
+      });
+    }
+    router.refresh();
+
+    return toast({
+      title: "Post saved",
+      description: "Your post has been saved successfully.",
+    });
   };
 
   return (
@@ -77,7 +105,7 @@ export default function Editor({ post }: EditorProps) {
         <div className="flex w-full items-center justify-between">
           <div className="flex items-center space-x-10">
             <Link
-              href={"dashboard"}
+              href={"/dashboard"}
               className={cn(buttonVariants({ variant: "ghost" }))}
             >
               Go back
