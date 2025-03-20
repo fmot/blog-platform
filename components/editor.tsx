@@ -16,6 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { postPatchSchema, postPatchSchemaType } from "@/lib/validations/post";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import { Icon } from "./icon";
 
 interface EditorProps {
   post: Pick<Post, "id" | "title" | "content" | "published">;
@@ -24,10 +25,13 @@ interface EditorProps {
 export default function Editor({ post }: EditorProps) {
   const ref = useRef<EditorJS | undefined>();
   const [isMounted, setIsMounted] = useState<boolean>(false);
+  const [isSaving, setIsSaving] = useState<boolean>(false);
   const router = useRouter();
   const { toast } = useToast();
 
   const initializeEditor = useCallback(async () => {
+    const body = postPatchSchema.parse(post);
+
     const editor = new EditorJS({
       holder: "editor",
       onReady() {
@@ -35,7 +39,7 @@ export default function Editor({ post }: EditorProps) {
       },
       placeholder: "Start writing your post",
       inlineToolbar: true,
-      data: post.content as any,
+      data: body.content,
       tools: {
         header: Header,
         linkTool: LinkTool,
@@ -43,7 +47,7 @@ export default function Editor({ post }: EditorProps) {
         code: Code,
       },
     });
-  }, []);
+  }, [post]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -71,6 +75,7 @@ export default function Editor({ post }: EditorProps) {
   });
 
   const onSubmit = async (data: postPatchSchemaType) => {
+    setIsSaving(true);
     const blocks = await ref.current?.save();
 
     const response = await fetch(`/api/posts/${post.id}`, {
@@ -83,6 +88,7 @@ export default function Editor({ post }: EditorProps) {
         content: blocks,
       }),
     });
+    setIsSaving(false);
 
     if (!response.ok) {
       return toast({
@@ -113,6 +119,7 @@ export default function Editor({ post }: EditorProps) {
             <p className="text-sm test-muted-foreground">Publish</p>
           </div>
           <button type="submit" className={cn(buttonVariants())}>
+            {isSaving && <Icon.spinner className="w-4 h-4 mr-2 animate-spin" />}
             Save
           </button>
         </div>
